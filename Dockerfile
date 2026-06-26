@@ -1,5 +1,5 @@
 # Building the binary of the App
-FROM golang:1.19 AS build
+FROM golang:1.26.4-alpine3.24 AS build
 
 WORKDIR /go/src/tasky
 COPY . .
@@ -7,7 +7,7 @@ RUN go mod download
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags "-s -w" -o /go/src/tasky/tasky
 
 
-FROM alpine:3.17.0 AS release
+FROM alpine:3.24.1 AS release
 
 ARG exposed_username=CHANGEME
 
